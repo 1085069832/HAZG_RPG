@@ -1,0 +1,108 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class FollowPlayer : MonoBehaviour
+{
+
+    Vector3 offset;//角色到摄像机的距离
+    Vector3 offsetNormalized;//距离向量方向
+    bool isRotating;
+    GameObject player;
+    [SerializeField] float scrollSpeed = 1f;//滑动速度
+    [SerializeField] float minDistance = 2f;//拉近的最近距离
+    [SerializeField] float maxDistance = 12f;//拉远的最远距离
+    [SerializeField] float mouseSpeed = 1f;//鼠标拖动速度
+    // Use this for initialization
+    void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+        transform.LookAt(player.transform.position);
+        offset = transform.position - player.transform.position;
+
+    }
+
+    // Update is called once per frame
+    void LateUpdate()
+    {
+
+        print(offset.magnitude);
+
+        RotateView();//镜头旋转
+
+        ScrollView();//镜头拉近和拉远
+
+        //让摄像机和角色保持距离
+        transform.position = player.transform.position + offset;
+    }
+
+    /// <summary>
+    /// 镜头旋转
+    /// </summary>
+    private void RotateView()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            isRotating = true;
+        }
+        if (Input.GetMouseButtonUp(1))
+        {
+            isRotating = false;
+        }
+
+        if (isRotating)
+        {
+            float mouseX = Input.GetAxis("Mouse X");//鼠标滑动值
+            float mouseY = Input.GetAxis("Mouse Y");
+            Vector3 originPos = transform.position;
+            Quaternion originRotation = transform.rotation;
+
+            //X旋转
+            transform.RotateAround(player.transform.position, player.transform.up, mouseX * mouseSpeed * Time.deltaTime);
+            //Y旋转
+            transform.RotateAround(player.transform.position, transform.right, -mouseY * mouseSpeed * Time.deltaTime);
+            float x = transform.eulerAngles.x;
+            if (x < 10 || x > 80)
+            {
+                transform.position = originPos;
+                transform.rotation = originRotation;
+            }
+            offset = transform.position - player.transform.position;
+        }
+
+        //重新更新角色到摄像机的向量
+        offsetNormalized = offset.normalized;
+    }
+
+    /// <summary>
+    /// 镜头拉近和拉远
+    /// </summary>
+    private void ScrollView()
+    {
+        float scrollValue = Input.GetAxis("Mouse ScrollWheel");
+        if (scrollValue != 0)
+        {
+            DoScrollView(scrollValue);
+        }
+    }
+
+    /// <summary>
+    /// 改变距离
+    /// </summary>
+    /// <param name="scrollValue">鼠标中键值</param>
+    private void DoScrollView(float scrollValue)
+    {
+        //限制距离
+        if (offset.magnitude < minDistance)
+        {
+            offset = offsetNormalized * minDistance;
+        }
+        else if (offset.magnitude > maxDistance)
+        {
+            offset = offsetNormalized * maxDistance;
+        }
+        //设置距离
+        offset -= offsetNormalized * scrollValue * scrollSpeed * Time.deltaTime;
+    }
+}
