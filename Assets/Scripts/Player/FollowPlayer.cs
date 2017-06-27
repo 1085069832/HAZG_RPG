@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// 摄像机跟随
+/// </summary>
 public class FollowPlayer : MonoBehaviour
 {
 
@@ -14,10 +16,12 @@ public class FollowPlayer : MonoBehaviour
     [SerializeField] float minDistance = 2f;//拉近的最近距离
     [SerializeField] float maxDistance = 12f;//拉远的最远距离
     [SerializeField] float mouseSpeed = 1f;//鼠标拖动速度
+    PlayerMove playerMove;
     // Use this for initialization
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        playerMove = player.GetComponent<PlayerMove>();
         transform.LookAt(player.transform.position);
         offset = transform.position - player.transform.position;
 
@@ -26,8 +30,6 @@ public class FollowPlayer : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-
-        print(offset.magnitude);
 
         RotateView();//镜头旋转
 
@@ -51,10 +53,11 @@ public class FollowPlayer : MonoBehaviour
             isRotating = false;
         }
 
-        if (isRotating)
+        if (isRotating && playerMove.state == PlayerMove.PlayerState.Idle)
         {
             float mouseX = Input.GetAxis("Mouse X");//鼠标滑动值
             float mouseY = Input.GetAxis("Mouse Y");
+            //记录位置和旋转
             Vector3 originPos = transform.position;
             Quaternion originRotation = transform.rotation;
 
@@ -65,6 +68,7 @@ public class FollowPlayer : MonoBehaviour
             float x = transform.eulerAngles.x;
             if (x < 10 || x > 80)
             {
+                //重置位置和旋转
                 transform.position = originPos;
                 transform.rotation = originRotation;
             }

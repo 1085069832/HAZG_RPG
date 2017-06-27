@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class PlayerDirection : MonoBehaviour
 {
@@ -18,7 +20,8 @@ public class PlayerDirection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        //点击到的不是物体，而是UI
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit raycastHit;
@@ -73,7 +76,7 @@ public class PlayerDirection : MonoBehaviour
     private void MoveDirection(Vector3 raycastHitPoint)
     {
         //人物Y不变
-        Vector3 dirPoint = new Vector3(raycastHitPoint.x,transform.position.y,raycastHitPoint.z);
+        Vector3 dirPoint = new Vector3(raycastHitPoint.x, transform.position.y, raycastHitPoint.z);
         transform.LookAt(dirPoint);
     }
 }
