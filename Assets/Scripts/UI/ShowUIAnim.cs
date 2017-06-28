@@ -15,14 +15,12 @@ public class ShowUIAnim : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
     }
 
     private void OnEnable()
     {
         if (isClose)
             StartCoroutine("UIOpen");
-
     }
 
     /// <summary>
