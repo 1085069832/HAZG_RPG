@@ -20,7 +20,7 @@ public class FollowPlayer : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag(MyConstants.PLAYER);
         playerMove = player.GetComponent<PlayerMove>();
         transform.LookAt(player.transform.position);
         offset = transform.position - player.transform.position;
@@ -55,8 +55,8 @@ public class FollowPlayer : MonoBehaviour
 
         if (isRotating && playerMove.state == PlayerMove.PlayerState.Idle)
         {
-            float mouseX = Input.GetAxis("Mouse X");//鼠标滑动值
-            float mouseY = Input.GetAxis("Mouse Y");
+            float mouseX = Input.GetAxis(MyConstants.MOUSEX);//鼠标滑动值
+            float mouseY = Input.GetAxis(MyConstants.MOUSEY);
             //记录位置和旋转
             Vector3 originPos = transform.position;
             Quaternion originRotation = transform.rotation;
@@ -84,7 +84,7 @@ public class FollowPlayer : MonoBehaviour
     /// </summary>
     private void ScrollView()
     {
-        float scrollValue = Input.GetAxis("Mouse ScrollWheel");
+        float scrollValue = Input.GetAxis(MyConstants.MOUSESW);
         if (scrollValue != 0)
         {
             DoScrollView(scrollValue);

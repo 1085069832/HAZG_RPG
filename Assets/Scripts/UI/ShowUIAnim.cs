@@ -20,7 +20,7 @@ public class ShowUIAnim : MonoBehaviour
     private void OnEnable()
     {
         if (isClose)
-            StartCoroutine("UIOpen");
+            StartCoroutine(MyConstants.UIOPEN);
     }
 
     /// <summary>
@@ -29,7 +29,7 @@ public class ShowUIAnim : MonoBehaviour
     public void OnUIClose()
     {
         if (!isClose)
-            StartCoroutine("UIClose");
+            StartCoroutine(MyConstants.UICLOSE);
     }
 
     /// <summary>
@@ -41,11 +41,11 @@ public class ShowUIAnim : MonoBehaviour
         yield return 0;
         //lerp,两个值不停缩小
         transform.position = Vector3.Lerp(transform.position, endIndex.position, speed);
-        StartCoroutine("UIOpen");
+        StartCoroutine(MyConstants.UIOPEN);
         print("移动");
         if (Vector3.Distance(transform.position, endIndex.position) < 0.1f)
         {
-            StopCoroutine("UIOpen");
+            StopCoroutine(MyConstants.UIOPEN);
             isClose = false;
         }
     }
@@ -59,11 +59,11 @@ public class ShowUIAnim : MonoBehaviour
         yield return 0;
         //lerp,两个值不停缩小
         transform.position = Vector3.Lerp(transform.position, startIndex.position, speed);
-        StartCoroutine("UIClose");
+        StartCoroutine(MyConstants.UICLOSE);
         print("移动");
         if (Vector3.Distance(transform.position, startIndex.position) < 0.1f)
         {
-            StopCoroutine("UIClose");
+            StopCoroutine(MyConstants.UICLOSE);
             isClose = true;
             gameObject.SetActive(false);
         }

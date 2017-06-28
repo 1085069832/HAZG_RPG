@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BarNPC : MonoBehaviour
+public class BarNPC : BaseNPC
 {
-    [SerializeField] GameObject task;
+    [SerializeField] GameObject task;//任务面板
     [SerializeField] GameObject acceptButton;
     [SerializeField] GameObject cancelButton;
     [SerializeField] GameObject okButton;
@@ -72,7 +72,7 @@ public class BarNPC : MonoBehaviour
     /// </summary>
     public void OnCancelClick()
     {
-        GameObject.Find("Quest").GetComponent<ShowUIAnim>().OnUIClose();
+        GameObject.Find(MyConstants.QUEST).GetComponent<ShowUIAnim>().OnUIClose();
     }
     /// <summary>
     /// 任务进度确认，未完成任务关闭对话框，完成任务则奖励金币操作
@@ -94,6 +94,6 @@ public class BarNPC : MonoBehaviour
             //显示新任务
             ShowTask();
         }
-        GameObject.Find("Quest").GetComponent<ShowUIAnim>().OnUIClose();
+        GameObject.Find(MyConstants.QUEST).GetComponent<ShowUIAnim>().OnUIClose();
     }
 }
