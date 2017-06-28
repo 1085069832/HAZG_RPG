@@ -10,9 +10,9 @@ public class BarNPC : MonoBehaviour
     [SerializeField] GameObject cancelButton;
     [SerializeField] GameObject okButton;
     [SerializeField] Text taskDes;
-    int wolfKilledCount;//已经击杀数量
+    [SerializeField] int wolfKilledCount;//已经击杀数量
     int wolfTotalCount = 10;//需击杀数量
-    int coin = 1000;//奖励金币
+    int taskCoin = 1000;//奖励金币
     bool isTasking;//是否在任务中
     // Use this for initialization
     void Start()
@@ -22,13 +22,20 @@ public class BarNPC : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
     }
 
     private void OnMouseDown()
     {
         task.SetActive(true);
-        ShowTask();
+
+        if (isTasking)
+        {
+            ShowAcceptTask();
+        }
+        else
+        {
+            ShowTask();
+        }
     }
 
     /// <summary>
@@ -36,7 +43,11 @@ public class BarNPC : MonoBehaviour
     /// </summary>
     private void ShowTask()
     {
-        taskDes.text = "任务：\n  击杀" + wolfTotalCount + "只小野狼" + "\n\n完成奖励：\n  " + coin + "金币";
+        isTasking = false;
+        okButton.SetActive(false);
+        acceptButton.SetActive(true);
+        cancelButton.SetActive(true);
+        taskDes.text = "任务：\n  击杀" + wolfTotalCount + "只小野狼" + "\n\n完成奖励：\n  " + taskCoin + "金币";
     }
 
     /// <summary>
@@ -48,7 +59,7 @@ public class BarNPC : MonoBehaviour
         okButton.SetActive(true);
         acceptButton.SetActive(false);
         cancelButton.SetActive(false);
-        taskDes.text = "当前任务进度:\n  " + wolfKilledCount + "/" + wolfTotalCount + "(击杀" + wolfTotalCount + "只狼)" + "\n\n完成奖励：\n  " + coin + "金币";
+        taskDes.text = "当前任务进度:\n  " + wolfKilledCount + "/" + wolfTotalCount + "(击杀" + wolfTotalCount + "只狼)" + "\n\n完成奖励：\n  " + taskCoin + "金币";
     }
 
     public void OnAcceptClick()
@@ -68,15 +79,21 @@ public class BarNPC : MonoBehaviour
     /// </summary>
     public void OnOKClick()
     {
-        if (isTasking)
+        if (wolfKilledCount < wolfTotalCount)
         {
-            //任务中，提示任务未完成
+            //任务中
 
         }
         else
         {
             //完成任务，奖励金币
             isTasking = false;
+            wolfKilledCount = 0;
+            PlayerStatus player = GameObject.FindGameObjectWithTag(MyConstants.PLAYER).GetComponent<PlayerStatus>();
+            player.Coin += taskCoin;
+            //显示新任务
+            ShowTask();
         }
+        GameObject.Find("Quest").GetComponent<ShowUIAnim>().OnUIClose();
     }
 }
