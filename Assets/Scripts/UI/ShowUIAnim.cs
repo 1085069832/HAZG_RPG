@@ -17,7 +17,10 @@ public class ShowUIAnim : MonoBehaviour
     {
     }
 
-    private void OnEnable()
+    /// <summary>
+    /// 开启UI
+    /// </summary>
+    public void OnUIOpen()
     {
         if (isClose)
             StartCoroutine(MyConstants.UIOPEN);
@@ -65,7 +68,6 @@ public class ShowUIAnim : MonoBehaviour
         {
             StopCoroutine(MyConstants.UICLOSE);
             isClose = true;
-            gameObject.SetActive(false);
         }
     }
 }

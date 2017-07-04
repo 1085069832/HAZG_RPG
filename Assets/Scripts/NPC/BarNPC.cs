@@ -17,6 +17,7 @@ public class BarNPC : BaseNPC
     // Use this for initialization
     void Start()
     {
+
     }
 
     // Update is called once per frame
@@ -26,7 +27,7 @@ public class BarNPC : BaseNPC
 
     private void OnMouseDown()
     {
-        task.SetActive(true);
+        task.GetComponent<ShowUIAnim>().OnUIOpen();
 
         if (isTasking)
         {

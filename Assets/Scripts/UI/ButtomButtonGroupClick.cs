@@ -14,7 +14,7 @@ public class ButtomButtonGroupClick : MonoBehaviour
 
     public void OnBagClick()
     {
-
+        Inventory.Instance.GetComponent<ShowUIAnim>().OnUIOpen();
     }
 
     public void OnEquipClick()
