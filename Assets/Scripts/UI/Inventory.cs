@@ -28,3 +28,4 @@ public class Inventory : MonoBehaviour
         coin.text = PlayerStatus.Instance.Coin + "";
     }
 }
+ 

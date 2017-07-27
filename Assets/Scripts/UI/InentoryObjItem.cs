@@ -22,6 +22,8 @@ public class InentoryObjItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public void OnEndDrag(PointerEventData eventData)
     {
         //结束拖拽
+        print(eventData.pointerEnter.name);
+
     }
 
     // Use this for initialization
