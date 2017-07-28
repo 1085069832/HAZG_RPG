@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class Inventory : MonoBehaviour
 {
     public static Inventory Instance;
-    [SerializeField] List<InventoryItem> items = new List<InventoryItem>();//物品
+    [SerializeField] List<InventoryItemGrid> items = new List<InventoryItemGrid>();//物品
     [SerializeField] Text coin;//金币
 
     private void Awake()

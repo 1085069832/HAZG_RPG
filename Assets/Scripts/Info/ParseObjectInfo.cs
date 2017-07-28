@@ -6,8 +6,14 @@ using UnityEngine;
 /// </summary>
 public class ParseObjectInfo : MonoBehaviour
 {
+    public static ParseObjectInfo Instance;
     [SerializeField] TextAsset gameInfo;//text数据
     Dictionary<int, ObjectInfo> dictInfos = new Dictionary<int, ObjectInfo>();
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
