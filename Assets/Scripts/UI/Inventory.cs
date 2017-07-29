@@ -10,6 +10,7 @@ public class Inventory : MonoBehaviour
     public static Inventory Instance;
     [SerializeField] List<InventoryItemGrid> items = new List<InventoryItemGrid>();//物品
     [SerializeField] Text coin;//金币
+    ShowUIAnim showUIAnim;
 
     private void Awake()
     {
@@ -19,13 +20,23 @@ public class Inventory : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        showUIAnim = GetComponent<ShowUIAnim>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        coin.text = PlayerStatus.Instance.Coin + "";
+        if (!showUIAnim.isClose)
+            coin.text = PlayerStatus.Instance.Coin + "";
+
+
+    }
+    /// <summary>
+    /// 拾取物品
+    /// </summary>
+    /// <param name="id"></param>
+    public void GetId(int id)
+    {
+
     }
 }
- 

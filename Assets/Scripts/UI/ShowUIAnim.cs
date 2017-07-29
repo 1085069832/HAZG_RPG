@@ -10,7 +10,8 @@ public class ShowUIAnim : MonoBehaviour
 {
     [SerializeField] Transform endIndex;//最终位置
     [SerializeField] float speed = 0.1f;//移动的速度
-    bool isClose = true;//是否关闭
+    [HideInInspector]
+    public bool isClose = true;//是否关闭
     [SerializeField] Transform startIndex;//开始位置
     // Use this for initialization
     void Start()
@@ -41,6 +42,7 @@ public class ShowUIAnim : MonoBehaviour
     /// <returns></returns>
     IEnumerator UIOpen()
     {
+        isClose = false;
         yield return 0;
         //lerp,两个值不停缩小
         transform.position = Vector3.Lerp(transform.position, endIndex.position, speed);
@@ -49,7 +51,6 @@ public class ShowUIAnim : MonoBehaviour
         if (Vector3.Distance(transform.position, endIndex.position) < 0.1f)
         {
             StopCoroutine(MyConstants.UIOPEN);
-            isClose = false;
         }
     }
 
@@ -59,6 +60,7 @@ public class ShowUIAnim : MonoBehaviour
     /// <returns></returns>
     IEnumerator UIClose()
     {
+        isClose = true;
         yield return 0;
         //lerp,两个值不停缩小
         transform.position = Vector3.Lerp(transform.position, startIndex.position, speed);
@@ -67,7 +69,6 @@ public class ShowUIAnim : MonoBehaviour
         if (Vector3.Distance(transform.position, startIndex.position) < 0.1f)
         {
             StopCoroutine(MyConstants.UICLOSE);
-            isClose = true;
         }
     }
 }
