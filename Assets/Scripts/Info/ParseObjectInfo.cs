@@ -18,8 +18,8 @@ public class ParseObjectInfo : MonoBehaviour
     private void Start()
     {
         ParseText();
-        print(dictInfos.Count);
-        print(dictInfos[1002]._icon_name);
+        //print(dictInfos.Count);
+        //print(dictInfos[1002]._icon_name);
     }
 
     public ObjectInfo GetObjectInfo(int id)
