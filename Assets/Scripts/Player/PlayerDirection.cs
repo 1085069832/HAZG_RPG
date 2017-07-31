@@ -20,7 +20,7 @@ public class PlayerDirection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //点击到的不是物体，而是UI
+        //点击到的不是UI
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

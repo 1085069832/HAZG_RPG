@@ -13,7 +13,7 @@ public class InventoryItemGrid : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        numberLabel = transform.FindChild("NumberLabel");
+        numberLabel = transform.Find("NumberLabel");
     }
 
     /// <summary>

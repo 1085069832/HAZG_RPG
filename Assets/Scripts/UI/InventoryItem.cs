@@ -21,12 +21,12 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         //正在拖拽
         transform.position = Input.mousePosition;
+        //print("OnDrag" + eventData.pointerCurrentRaycast.gameObject.name);
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
         //注意射线检测不到UI
-
         //结束拖拽
         //判断拖拽到哪个物体上
         bool isCollider = Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out raycastHit);
@@ -36,12 +36,18 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             //没饰品的格子
             //其他
             print(raycastHit.transform.name);
+
+        }
+
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            print("点击到UI");
         }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        print("OnPointerEnter");
+        //print("OnPointerEnter" + eventData.pointerCurrentRaycast.gameObject.name);
     }
 
     /// <summary>
