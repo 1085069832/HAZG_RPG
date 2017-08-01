@@ -7,7 +7,7 @@ using UnityEngine.UI;
 /// <summary>
 /// 物品拖拽
 /// </summary>
-public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler
+public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
     RaycastHit raycastHit;
     Button bt;
@@ -15,13 +15,13 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public void OnBeginDrag(PointerEventData eventData)
     {
         //开始拖拽
+        eventData.pointerCurrentRaycast.gameObject.transform.parent = GetComponentInParent<Inventory>().gameObject.transform;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         //正在拖拽
         transform.position = Input.mousePosition;
-        //print("OnDrag" + eventData.pointerCurrentRaycast.gameObject.name);
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -48,6 +48,11 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public void OnPointerEnter(PointerEventData eventData)
     {
         //print("OnPointerEnter" + eventData.pointerCurrentRaycast.gameObject.name);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+
     }
 
     /// <summary>
