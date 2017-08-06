@@ -15,4 +15,5 @@ public class MyConstants
     public const string UIOPEN = "UIOpen";
     public const string UICLOSE = "UIClose";
     public const string LAYERMASK = "InventoryItem";
+    public const string NUMBERLABEL = "NumberLabel";
 }

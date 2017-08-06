@@ -7,52 +7,31 @@ using UnityEngine.UI;
 /// <summary>
 /// 物品拖拽
 /// </summary>
-public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
+public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
-    RaycastHit raycastHit;
-    Button bt;
+    public static Action<Transform> BeginDrag;
+    public static Action<PointerEventData> EndDrag;
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         //开始拖拽
-        eventData.pointerCurrentRaycast.gameObject.transform.parent = GetComponentInParent<Inventory>().gameObject.transform;
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            if (BeginDrag != null)
+            {
+                BeginDrag(transform);
+            }
+        }
     }
 
-    public void OnDrag(PointerEventData eventData)
-    {
-        //正在拖拽
-        transform.position = Input.mousePosition;
-    }
+    public void OnDrag(PointerEventData eventData) { }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        //注意射线检测不到UI
-        //结束拖拽
-        //判断拖拽到哪个物体上
-        bool isCollider = Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out raycastHit);
-        if (isCollider)
+        if (EndDrag != null)
         {
-            //有饰品的格子,自己或其他饰品
-            //没饰品的格子
-            //其他
-            print(raycastHit.transform.name);
-
+            EndDrag(eventData);
         }
-
-        if (EventSystem.current.IsPointerOverGameObject())
-        {
-            print("点击到UI");
-        }
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        //print("OnPointerEnter" + eventData.pointerCurrentRaycast.gameObject.name);
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-
     }
 
     /// <summary>

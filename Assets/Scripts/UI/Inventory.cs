@@ -29,7 +29,7 @@ public class Inventory : MonoBehaviour
         if (!showUIAnim.isClose)
             coin.text = PlayerStatus.Instance.Coin + "";
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(1))
         {
             GetId(Random.Range(1001, 1004));
         }

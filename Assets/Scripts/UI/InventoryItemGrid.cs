@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class InventoryItemGrid : MonoBehaviour
@@ -10,10 +12,38 @@ public class InventoryItemGrid : MonoBehaviour
     int num = 0;//物体数量
     ObjectInfo objectInfo;
     Transform numberLabel;
+
+    void Awake()
+    {
+        InventoryItem.BeginDrag = OnItemBeginDrag;
+        InventoryItem.EndDrag = OnItemEndDrag;
+    }
+
     // Use this for initialization
     void Start()
     {
-        numberLabel = transform.Find("NumberLabel");
+        numberLabel = transform.Find(MyConstants.NUMBERLABEL);
+    }
+
+    void OnItemBeginDrag(Transform inventoryItem)
+    {
+
+    }
+
+    void OnItemEndDrag(PointerEventData eventData)
+    {
+        //拖拽结束物体
+        print(eventData.pointerCurrentRaycast.gameObject.name);
+    }
+
+    private void Update()
+    {
+        //结束拖拽
+        //判断拖拽到哪个物体上
+        //有饰品的格子,自己或其他饰品
+        //没饰品的格子
+        //其他
+
     }
 
     /// <summary>

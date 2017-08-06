@@ -47,7 +47,6 @@ public class ShowUIAnim : MonoBehaviour
         //lerp,两个值不停缩小
         transform.position = Vector3.Lerp(transform.position, endIndex.position, speed);
         StartCoroutine(MyConstants.UIOPEN);
-        print("移动");
         if (Vector3.Distance(transform.position, endIndex.position) < 0.1f)
         {
             StopCoroutine(MyConstants.UIOPEN);
