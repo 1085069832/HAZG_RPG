@@ -10,7 +10,8 @@ using UnityEngine.UI;
 public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
     public static Action<Transform> BeginDrag;
-    public static Action<PointerEventData> EndDrag;
+    public static Action Draging;
+    public static Action<Transform, PointerEventData> EndDrag;
 
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -18,20 +19,21 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             if (BeginDrag != null)
-            {
                 BeginDrag(transform);
-            }
         }
     }
 
-    public void OnDrag(PointerEventData eventData) { }
+    public void OnDrag(PointerEventData eventData)
+    {
+        if (Draging != null)
+            Draging();
+
+    }
 
     public void OnEndDrag(PointerEventData eventData)
     {
         if (EndDrag != null)
-        {
-            EndDrag(eventData);
-        }
+            EndDrag(transform, eventData);
     }
 
     /// <summary>

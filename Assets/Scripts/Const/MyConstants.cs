@@ -14,6 +14,7 @@ public class MyConstants
     public const string QUEST = "Quest";//任务
     public const string UIOPEN = "UIOpen";
     public const string UICLOSE = "UIClose";
-    public const string LAYERMASK = "InventoryItem";
+    public const string INVENTORYITEMGRID = "InventoryItemGrid";
+    public const string INVENTORYITEM = "InventoryItem";
     public const string NUMBERLABEL = "NumberLabel";
 }

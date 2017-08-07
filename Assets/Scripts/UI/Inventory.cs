@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 /// <summary>
 /// 背包
@@ -12,14 +13,88 @@ public class Inventory : MonoBehaviour
     [SerializeField] Text coin;//金币
     ShowUIAnim showUIAnim;
     [SerializeField] GameObject inventoryItem;
+    [SerializeField] GameObject inventoryItemCopy;//显示拖拽的物品
+
     private void Awake()
     {
         Instance = this;
+
+        InventoryItem.BeginDrag += OnItemBeginDrag;
+        InventoryItem.Draging += OnItemDraging;
+        InventoryItem.EndDrag += OnItemEndDrag;
     }
     // Use this for initialization
     void Start()
     {
         showUIAnim = GetComponent<ShowUIAnim>();
+    }
+
+    void OnItemBeginDrag(Transform inventoryItem)
+    {
+        inventoryItemCopy.SetActive(true);
+        inventoryItemCopy.GetComponent<InventoryItemCopy>().SetTexture(inventoryItem.GetComponent<RawImage>().texture);
+    }
+
+    void OnItemDraging()
+    {
+        inventoryItemCopy.transform.position = Input.mousePosition;
+    }
+
+    void OnItemEndDrag(Transform inventoryItem, PointerEventData eventData)
+    {
+        //结束拖拽
+        //判断拖拽到哪个物体上
+        //有饰品的格子,自己或其他饰品
+        //没饰品的格子
+        //其他
+        GameObject eventDataGo = eventData.pointerCurrentRaycast.gameObject;
+        if (!eventDataGo)
+        {
+            //空地
+            inventoryItemCopy.SetActive(false);
+            //丢弃物品
+            print("丢弃物品");
+
+
+            return;
+        }
+
+        DragEndCheck(inventoryItem, eventDataGo.transform);
+    }
+
+    void DragEndCheck(Transform inventoryItem, Transform endTransform)
+    {
+        if (endTransform.tag == MyConstants.INVENTORYITEMGRID)
+        {
+            if (endTransform.childCount == 1)
+            {
+                //拖拽到空grid上
+                print("拖拽到空grid上");
+
+            }
+        }
+        else if (endTransform.tag == MyConstants.INVENTORYITEM)
+        {
+            //拖拽到item上
+            //自己
+            //其它
+            if (inventoryItem == endTransform)
+            {
+                print("拖拽到自己");
+
+            }
+            else
+            {
+                print("拖拽到其它Item");
+
+            }
+        }
+        else
+        {
+            //拖拽到inventory空的地方
+            print("拖拽到inventory空的地方");
+
+        }
     }
 
     // Update is called once per frame
