@@ -12,7 +12,7 @@ public class Inventory : MonoBehaviour
     [SerializeField] List<InventoryItemGrid> items = new List<InventoryItemGrid>();//物品
     [SerializeField] Text coin;//金币
     ShowUIAnim showUIAnim;
-    [SerializeField] GameObject inventoryItem;
+    public GameObject inventoryItem;
     [SerializeField] GameObject inventoryItemCopy;//显示拖拽的物品
 
     private void Awake()
@@ -47,15 +47,17 @@ public class Inventory : MonoBehaviour
         //有饰品的格子,自己或其他饰品
         //没饰品的格子
         //其他
+        inventoryItemCopy.SetActive(false);
+
         GameObject eventDataGo = eventData.pointerCurrentRaycast.gameObject;
         if (!eventDataGo)
         {
             //空地
-            inventoryItemCopy.SetActive(false);
             //丢弃物品
             print("丢弃物品");
-
-
+            var itemGrid = inventoryItem.GetComponentInParent<InventoryItemGrid>();
+            Destroy(inventoryItem.gameObject);
+            itemGrid.ClearInfo();
             return;
         }
 
@@ -70,7 +72,11 @@ public class Inventory : MonoBehaviour
             {
                 //拖拽到空grid上
                 print("拖拽到空grid上");
-
+                var oldItemGrid = inventoryItem.GetComponentInParent<InventoryItemGrid>();
+                var newItemGrid = endTransform.GetComponent<InventoryItemGrid>();
+                newItemGrid.SetId(oldItemGrid.id, oldItemGrid.num);
+                oldItemGrid.ClearInfo();
+                Destroy(inventoryItem.gameObject);
             }
         }
         else if (endTransform.tag == MyConstants.INVENTORYITEM)
@@ -86,14 +92,23 @@ public class Inventory : MonoBehaviour
             else
             {
                 print("拖拽到其它Item");
+                //交换
+                var oldItemGrid = inventoryItem.GetComponentInParent<InventoryItemGrid>();
+                var newItemGrid = endTransform.GetComponentInParent<InventoryItemGrid>();
+                oldItemGrid.id = oldItemGrid.id ^ newItemGrid.id;
+                oldItemGrid.num = oldItemGrid.num ^ newItemGrid.num;
 
+                newItemGrid.id = oldItemGrid.id ^ newItemGrid.id;
+                newItemGrid.num = oldItemGrid.num ^ newItemGrid.num;
+
+                oldItemGrid.SetId(oldItemGrid.id ^ newItemGrid.id, oldItemGrid.num ^ newItemGrid.num);
+                newItemGrid.SetId(newItemGrid.id, newItemGrid.num);
             }
         }
         else
         {
             //拖拽到inventory空的地方
             print("拖拽到inventory空的地方");
-
         }
     }
 
@@ -147,7 +162,6 @@ public class Inventory : MonoBehaviour
             if (grid != null)
             {
                 //有足够的格子
-                GameObject itemGo = Instantiate(inventoryItem, grid.transform);
                 grid.SetId(id);
             }
         }

@@ -9,9 +9,11 @@ public class InventoryItemGrid : MonoBehaviour
 {
     [HideInInspector]
     public int id = 0;//物品id
-    int num = 0;//物体数量
+    [HideInInspector]
+    public int num = 0;//物体数量
     ObjectInfo objectInfo;
     Transform numberLabel;
+    GameObject itemGo;
 
     // Use this for initialization
     void Start()
@@ -27,6 +29,8 @@ public class InventoryItemGrid : MonoBehaviour
     public void SetId(int id, int num = 1)
     {
         objectInfo = ParseObjectInfo.Instance.GetObjectInfo(id);
+        if (!itemGo)
+            itemGo = Instantiate(GetComponentInParent<Inventory>().inventoryItem, transform);
         InventoryItem item = GetComponentInChildren<InventoryItem>();
         item.SetIconName(objectInfo._icon_name);
         numberLabel.gameObject.SetActive(true);
@@ -46,7 +50,7 @@ public class InventoryItemGrid : MonoBehaviour
         id = 0;
         num = 0;
         objectInfo = null;
-        numberLabel.gameObject.SetActive(true);
+        numberLabel.gameObject.SetActive(false);
     }
 
     /// <summary>
