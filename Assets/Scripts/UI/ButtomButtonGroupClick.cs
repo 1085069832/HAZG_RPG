@@ -6,15 +6,31 @@ using UnityEngine;
 /// </summary>
 public class ButtomButtonGroupClick : MonoBehaviour
 {
+    [SerializeField]
+    ShowUIAnim statusShowUIAnim;
+    [SerializeField]
+    ShowUIAnim bagShowUIAnim;
+    [SerializeField]
+    ShowUIAnim equipShowUIAnim;
+    [SerializeField]
+    ShowUIAnim skillShowUIAnim;
+    [SerializeField]
+    ShowUIAnim settingShowUIAnim;
 
     public void OnStatusClick()
     {
-
+        if (statusShowUIAnim.isClose)
+            statusShowUIAnim.OnUIOpen();
+        else
+            statusShowUIAnim.OnUIClose();
     }
 
     public void OnBagClick()
     {
-        Inventory.Instance.GetComponent<ShowUIAnim>().OnUIOpen();
+        if (bagShowUIAnim.isClose)
+            bagShowUIAnim.OnUIOpen();
+        else
+            bagShowUIAnim.OnUIClose();
     }
 
     public void OnEquipClick()

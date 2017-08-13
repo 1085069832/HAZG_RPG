@@ -8,14 +8,15 @@ using UnityEngine.UI;
 /// </summary>
 public class ShowUIAnim : MonoBehaviour
 {
+    [SerializeField] Transform startIndex;//开始位置
     [SerializeField] Transform endIndex;//最终位置
-    [SerializeField] float speed = 0.1f;//移动的速度
+    [SerializeField] float speed = 0.3f;//移动的速度
     [HideInInspector]
     public bool isClose = true;//是否关闭
-    [SerializeField] Transform startIndex;//开始位置
-    // Use this for initialization
-    void Start()
+
+    private void Start()
     {
+        transform.position = startIndex.position;
     }
 
     /// <summary>
@@ -24,7 +25,10 @@ public class ShowUIAnim : MonoBehaviour
     public void OnUIOpen()
     {
         if (isClose)
+        {
+            StopCoroutine(MyConstants.UICLOSE);
             StartCoroutine(MyConstants.UIOPEN);
+        }
     }
 
     /// <summary>
@@ -33,7 +37,10 @@ public class ShowUIAnim : MonoBehaviour
     public void OnUIClose()
     {
         if (!isClose)
+        {
+            StopCoroutine(MyConstants.UIOPEN);
             StartCoroutine(MyConstants.UICLOSE);
+        }
     }
 
     /// <summary>
@@ -64,7 +71,6 @@ public class ShowUIAnim : MonoBehaviour
         //lerp,两个值不停缩小
         transform.position = Vector3.Lerp(transform.position, startIndex.position, speed);
         StartCoroutine(MyConstants.UICLOSE);
-        print("移动");
         if (Vector3.Distance(transform.position, startIndex.position) < 0.1f)
         {
             StopCoroutine(MyConstants.UICLOSE);
