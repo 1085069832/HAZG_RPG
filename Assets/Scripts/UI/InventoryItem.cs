@@ -7,13 +7,15 @@ using UnityEngine.UI;
 /// <summary>
 /// 物品拖拽
 /// </summary>
-public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public static Action<Transform> BeginDrag;
     public static Action Draging;
     public static Action<Transform, PointerEventData> EndDrag;
+    public static Action<int> PointerEnter;
+    public static Action PointerExit;
 
-    public void OnBeginDrag(PointerEventData eventData)
+    void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
     {
         //开始拖拽
         if (eventData.button == PointerEventData.InputButton.Left)
@@ -23,14 +25,14 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
         }
     }
 
-    public void OnDrag(PointerEventData eventData)
+    void IDragHandler.OnDrag(PointerEventData eventData)
     {
         if (Draging != null)
             Draging();
 
     }
 
-    public void OnEndDrag(PointerEventData eventData)
+    void IEndDragHandler.OnEndDrag(PointerEventData eventData)
     {
         if (EndDrag != null)
             EndDrag(transform, eventData);
@@ -55,5 +57,17 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
     {
         Texture texture = Resources.Load<Texture>("GUI/Icon/" + iconName);
         GetComponent<RawImage>().texture = texture;
+    }
+
+    void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
+    {
+        if (PointerEnter != null)
+            PointerEnter(transform.GetComponentInParent<InventoryItemGrid>().id);
+    }
+
+    void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
+    {
+        if (PointerExit != null)
+            PointerExit();
     }
 }

@@ -14,6 +14,7 @@ public class Inventory : MonoBehaviour
     ShowUIAnim showUIAnim;
     public GameObject inventoryItem;
     [SerializeField] GameObject inventoryItemCopy;//显示拖拽的物品
+    LabelUI labelUI;
 
     private void Awake()
     {
@@ -22,11 +23,14 @@ public class Inventory : MonoBehaviour
         InventoryItem.BeginDrag += OnItemBeginDrag;
         InventoryItem.Draging += OnItemDraging;
         InventoryItem.EndDrag += OnItemEndDrag;
+        InventoryItem.PointerEnter += OnItemPointerEnter;
+        InventoryItem.PointerExit += OnItemPointerExit;
     }
     // Use this for initialization
     void Start()
     {
         showUIAnim = GetComponent<ShowUIAnim>();
+        labelUI = GetComponent<LabelUI>();
     }
 
     void OnItemBeginDrag(Transform inventoryItem)
@@ -62,6 +66,16 @@ public class Inventory : MonoBehaviour
         }
 
         DragEndCheck(inventoryItem, eventDataGo.transform);
+    }
+
+    void OnItemPointerEnter(int id)
+    {
+        labelUI.ShowLabel(id);
+    }
+
+    void OnItemPointerExit()
+    {
+        labelUI.HideLabel();
     }
 
     void DragEndCheck(Transform inventoryItem, Transform endTransform)
