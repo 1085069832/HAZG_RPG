@@ -14,16 +14,6 @@ public class BarNPC : BaseNPC
     int wolfTotalCount = 10;//需击杀数量
     int taskCoin = 1000;//奖励金币
     bool isTasking;//是否在任务中
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
 
     private void OnMouseDown()
     {

@@ -15,6 +15,7 @@ public class Inventory : MonoBehaviour
     public GameObject inventoryItem;
     [SerializeField] GameObject inventoryItemCopy;//显示拖拽的物品
     LabelUI labelUI;
+    PlayerStatus playerStatus;
 
     private void Awake()
     {
@@ -26,11 +27,13 @@ public class Inventory : MonoBehaviour
         InventoryItem.PointerEnter += OnItemPointerEnter;
         InventoryItem.PointerExit += OnItemPointerExit;
     }
+
     // Use this for initialization
     void Start()
     {
         showUIAnim = GetComponent<ShowUIAnim>();
         labelUI = GetComponent<LabelUI>();
+        playerStatus = PlayerStatus.Instance;
     }
 
     void OnItemBeginDrag(Transform inventoryItem)
@@ -131,13 +134,14 @@ public class Inventory : MonoBehaviour
     {
         //显示金币
         if (!showUIAnim.isClose)
-            coin.text = PlayerStatus.Instance.Coin + "";
+            coin.text = playerStatus.Coin + "";
 
         if (Input.GetMouseButtonDown(1))
         {
             GetId(Random.Range(1001, 1004));
         }
     }
+
     /// <summary>
     /// 拾取物品
     /// </summary>
@@ -178,6 +182,31 @@ public class Inventory : MonoBehaviour
                 //有足够的格子
                 grid.SetId(id);
             }
+            else
+            {
+                print("没有多的格子了");
+            }
         }
+    }
+
+    /// <summary>
+    /// 购买
+    /// </summary>
+    /// <param name="id">id</param>
+    /// <param name="price">单件价格</param>
+    /// <param name="count">购买数量</param>
+    /// <returns></returns>
+    public bool BuyObj(int id, int price, int count)
+    {
+        if (price * count <= playerStatus.Coin)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                GetId(id);
+            }
+            playerStatus.Coin -= price * count;
+            return true;
+        }
+        return false;
     }
 }

@@ -10,7 +10,7 @@ public class PlayerStatus : MonoBehaviour
     private int grade = 1;
     private int hp = 100;
     private int mp = 100;
-    [SerializeField] int coin = 200;//金币
+    [SerializeField] int coin = 1000;//金币
 
     private int attack = 20;
     private int attack_plus = 0;
