@@ -8,14 +8,16 @@ using UnityEngine.UI;
 /// </summary>
 public class ShowUIAnim : MonoBehaviour
 {
-    [SerializeField] Transform startIndex;//开始位置
-    [SerializeField] Transform endIndex;//最终位置
+    Transform startIndex;//开始位置
+    Transform endIndex;//最终位置
     [SerializeField] float speed = 0.3f;//移动的速度
     [HideInInspector]
     public bool isClose = true;//是否关闭
 
     private void Start()
     {
+        startIndex = GameObject.Find(MyConstants.STARTINDEX).transform;
+        endIndex = GameObject.Find(MyConstants.ENDINDEX).transform;
         transform.position = startIndex.position;
     }
 

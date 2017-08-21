@@ -35,7 +35,10 @@ public class ButtomButtonGroupClick : MonoBehaviour
 
     public void OnEquipClick()
     {
-
+        if (equipShowUIAnim.isClose)
+            equipShowUIAnim.OnUIOpen();
+        else
+            equipShowUIAnim.OnUIClose();
     }
 
     public void OnSkillClick()

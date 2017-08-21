@@ -17,4 +17,6 @@ public class MyConstants
     public const string INVENTORYITEMGRID = "InventoryItemGrid";
     public const string INVENTORYITEM = "InventoryItem";
     public const string NUMBERLABEL = "NumberLabel";
+    public const string STARTINDEX = "Canvas/StartIndex";
+    public const string ENDINDEX = "Canvas/EndIndex";
 }

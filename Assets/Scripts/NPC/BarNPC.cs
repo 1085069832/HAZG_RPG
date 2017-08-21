@@ -14,10 +14,23 @@ public class BarNPC : BaseNPC
     int wolfTotalCount = 10;//需击杀数量
     int taskCoin = 1000;//奖励金币
     bool isTasking;//是否在任务中
+    ShowUIAnim showUIAnim;
+
+    private void Start()
+    {
+        showUIAnim = task.GetComponent<ShowUIAnim>();
+    }
 
     private void OnMouseDown()
     {
-        task.GetComponent<ShowUIAnim>().OnUIOpen();
+        if (showUIAnim.isClose)
+        {
+            showUIAnim.OnUIOpen();
+        }
+        else
+        {
+            showUIAnim.OnUIClose();
+        }
 
         if (isTasking)
         {

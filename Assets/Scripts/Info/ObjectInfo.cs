@@ -14,6 +14,23 @@ public class ObjectInfo
         Drug, Equip, Mat
     }
 
+    public enum DressType
+    {
+        Headgear,
+        Armor,
+        RightHand,
+        LeftHand,
+        Shoe,
+        Accessory
+    }
+
+    public enum ApplicationType
+    {
+        Swordman,
+        Magician,
+        Common
+    }
+
     [HideInInspector]
     public int _id;//id
     [HideInInspector]
@@ -30,4 +47,14 @@ public class ObjectInfo
     public int _price_sell;//售价
     [HideInInspector]
     public int _price_buy;//购买价
+    [HideInInspector]
+    public int attack;
+    [HideInInspector]
+    public int def;
+    [HideInInspector]
+    public int speed;
+    [HideInInspector]
+    public DressType dressType;
+    [HideInInspector]
+    public ApplicationType applicationType;
 }
