@@ -53,6 +53,46 @@ public class ParseObjectInfo : MonoBehaviour
                     break;
                 case "Equip":
                     objectInfo._type = ObjectInfo.ObjectType.Equip;
+                    objectInfo.attack = int.Parse(values[4]);
+                    objectInfo.def = int.Parse(values[5]);
+                    objectInfo.speed = int.Parse(values[6]);
+                    switch (values[7])
+                    {
+                        case "Headgear":
+                            objectInfo.dressType = ObjectInfo.DressType.Headgear;
+                            break;
+                        case "Armor":
+                            objectInfo.dressType = ObjectInfo.DressType.Armor;
+                            break;
+                        case "RightHand":
+                            objectInfo.dressType = ObjectInfo.DressType.RightHand;
+                            break;
+                        case "LeftHand":
+                            objectInfo.dressType = ObjectInfo.DressType.LeftHand;
+                            break;
+                        case "Shoe":
+                            objectInfo.dressType = ObjectInfo.DressType.Shoe;
+                            break;
+                        case "Accessory":
+                            objectInfo.dressType = ObjectInfo.DressType.Accessory;
+                            break;
+                    }
+
+                    switch (values[8])
+                    {
+                        case "Swordman":
+                            objectInfo.applicationType = ObjectInfo.ApplicationType.Swordman;
+                            break;
+                        case "Magician":
+                            objectInfo.applicationType = ObjectInfo.ApplicationType.Magician;
+                            break;
+                        case "Common":
+                            objectInfo.applicationType = ObjectInfo.ApplicationType.Common;
+                            break;
+                    }
+                    objectInfo._price_sell = int.Parse(values[9]);
+                    objectInfo._price_buy = int.Parse(values[10]);
+
                     break;
                 case "Mat":
                     objectInfo._type = ObjectInfo.ObjectType.Mat;
