@@ -1,35 +1,37 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+/// <summary>
+/// 物品类型
+/// </summary>
+public enum ObjectType
+{
+    Drug, Equip, Mat
+}
+
+public enum DressType
+{
+    Headgear,
+    Armor,
+    RightHand,
+    LeftHand,
+    Shoe,
+    Accessory
+}
+
+public enum ApplicationType
+{
+    Swordman,
+    Magician,
+    Common
+}
+
 /// <summary>
 /// 物品实体类
 /// </summary>
 public class ObjectInfo
 {
-    /// <summary>
-    /// 物品类型
-    /// </summary>
-    public enum ObjectType
-    {
-        Drug, Equip, Mat
-    }
-
-    public enum DressType
-    {
-        Headgear,
-        Armor,
-        RightHand,
-        LeftHand,
-        Shoe,
-        Accessory
-    }
-
-    public enum ApplicationType
-    {
-        Swordman,
-        Magician,
-        Common
-    }
 
     [HideInInspector]
     public int _id;//id

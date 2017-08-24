@@ -16,6 +16,11 @@ public class Inventory : MonoBehaviour
     [SerializeField] GameObject inventoryItemCopy;//显示拖拽的物品
     LabelUI labelUI;
     PlayerStatus playerStatus;
+    int id;
+    bool isPointEnter;
+    [SerializeField] Equipment equipment;
+    InventoryItemGrid inventoryItemGrid;
+    GameObject inventoryItemGo;
 
     private void Awake()
     {
@@ -71,13 +76,18 @@ public class Inventory : MonoBehaviour
         DragEndCheck(inventoryItem, eventDataGo.transform);
     }
 
-    void OnItemPointerEnter(int id)
+    void OnItemPointerEnter(int id, InventoryItemGrid inventoryItemGrid, GameObject inventoryItemGo)
     {
+        this.id = id;
+        this.inventoryItemGrid = inventoryItemGrid;
+        this.inventoryItemGo = inventoryItemGo;
+        isPointEnter = true;
         labelUI.ShowLabel(id);
     }
 
     void OnItemPointerExit()
     {
+        isPointEnter = false;
         labelUI.HideLabel();
     }
 
@@ -136,9 +146,26 @@ public class Inventory : MonoBehaviour
         if (!showUIAnim.isClose)
             coin.text = playerStatus.Coin + "";
 
+        if (Input.GetMouseButtonDown(2))
+        {
+            GetId(Random.Range(2001, 2022));
+        }
+
         if (Input.GetMouseButtonDown(1))
         {
-            GetId(Random.Range(1001, 1004));
+            if (isPointEnter)
+            {
+                if (inventoryItemGrid.num > 0)
+                {
+                    equipment.SetId(id);
+                    inventoryItemGrid.AddNum(-1);
+                    if (inventoryItemGrid.num == 0)
+                    {
+                        Destroy(inventoryItemGo);
+                        inventoryItemGrid.ClearInfo();
+                    }
+                }
+            }
         }
     }
 

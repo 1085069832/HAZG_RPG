@@ -40,17 +40,24 @@ public class LabelUI : MonoBehaviour
         string des = "";
         switch (info._type)
         {
-            case ObjectInfo.ObjectType.Drug:
+            case ObjectType.Drug:
                 des += "名称：" + info._name + "\n";
                 des += "+HP：" + info._hp + "\n";
                 des += "+MP：" + info._mp + "\n";
                 des += "购买价：" + info._price_buy + "\n";
                 des += "出售价：" + info._price_sell;
                 break;
-            case ObjectInfo.ObjectType.Equip:
-
+            case ObjectType.Equip:
+                des += "名称：" + info._name + "\n";
+                des += "+攻击：" + info.attack + "\n";
+                des += "+防御：" + info.def + "\n";
+                des += "+速度：" + info.speed + "\n";
+                des += "穿戴类型：" + info.dressType + "\n";
+                des += "适用类型：" + info.applicationType + "\n";
+                des += "购买价：" + info._price_buy + "\n";
+                des += "出售价：" + info._price_sell;
                 break;
-            case ObjectInfo.ObjectType.Mat:
+            case ObjectType.Mat:
 
                 break;
         }

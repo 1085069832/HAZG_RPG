@@ -45,49 +45,49 @@ public class ParseObjectInfo : MonoBehaviour
             switch (type)
             {
                 case "Drug":
-                    objectInfo._type = ObjectInfo.ObjectType.Drug;
+                    objectInfo._type = ObjectType.Drug;
                     objectInfo._hp = int.Parse(values[4]);
                     objectInfo._mp = int.Parse(values[5]);
                     objectInfo._price_sell = int.Parse(values[6]);
                     objectInfo._price_buy = int.Parse(values[7]);
                     break;
                 case "Equip":
-                    objectInfo._type = ObjectInfo.ObjectType.Equip;
+                    objectInfo._type = ObjectType.Equip;
                     objectInfo.attack = int.Parse(values[4]);
                     objectInfo.def = int.Parse(values[5]);
                     objectInfo.speed = int.Parse(values[6]);
                     switch (values[7])
                     {
                         case "Headgear":
-                            objectInfo.dressType = ObjectInfo.DressType.Headgear;
+                            objectInfo.dressType = DressType.Headgear;
                             break;
                         case "Armor":
-                            objectInfo.dressType = ObjectInfo.DressType.Armor;
+                            objectInfo.dressType = DressType.Armor;
                             break;
                         case "RightHand":
-                            objectInfo.dressType = ObjectInfo.DressType.RightHand;
+                            objectInfo.dressType = DressType.RightHand;
                             break;
                         case "LeftHand":
-                            objectInfo.dressType = ObjectInfo.DressType.LeftHand;
+                            objectInfo.dressType = DressType.LeftHand;
                             break;
                         case "Shoe":
-                            objectInfo.dressType = ObjectInfo.DressType.Shoe;
+                            objectInfo.dressType = DressType.Shoe;
                             break;
                         case "Accessory":
-                            objectInfo.dressType = ObjectInfo.DressType.Accessory;
+                            objectInfo.dressType = DressType.Accessory;
                             break;
                     }
 
                     switch (values[8])
                     {
                         case "Swordman":
-                            objectInfo.applicationType = ObjectInfo.ApplicationType.Swordman;
+                            objectInfo.applicationType = ApplicationType.Swordman;
                             break;
                         case "Magician":
-                            objectInfo.applicationType = ObjectInfo.ApplicationType.Magician;
+                            objectInfo.applicationType = ApplicationType.Magician;
                             break;
                         case "Common":
-                            objectInfo.applicationType = ObjectInfo.ApplicationType.Common;
+                            objectInfo.applicationType = ApplicationType.Common;
                             break;
                     }
                     objectInfo._price_sell = int.Parse(values[9]);
@@ -95,7 +95,7 @@ public class ParseObjectInfo : MonoBehaviour
 
                     break;
                 case "Mat":
-                    objectInfo._type = ObjectInfo.ObjectType.Mat;
+                    objectInfo._type = ObjectType.Mat;
                     break;
                 default:
                     break;

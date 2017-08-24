@@ -12,7 +12,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
     public static Action<Transform> BeginDrag;
     public static Action Draging;
     public static Action<Transform, PointerEventData> EndDrag;
-    public static Action<int> PointerEnter;
+    public static Action<int, InventoryItemGrid, GameObject> PointerEnter;
     public static Action PointerExit;
 
     void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
@@ -62,7 +62,10 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
         if (PointerEnter != null)
-            PointerEnter(transform.GetComponentInParent<InventoryItemGrid>().id);
+        {
+            InventoryItemGrid inventoryItemGrid = transform.GetComponentInParent<InventoryItemGrid>();
+            PointerEnter(inventoryItemGrid.id, inventoryItemGrid, gameObject);
+        }
     }
 
     void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
