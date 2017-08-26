@@ -21,6 +21,8 @@ public class PlayerStatus : MonoBehaviour
     [SerializeField]
     int point_remain = 0;//剩余点数
 
+    public ApplicationType applicationType;
+
     private void Awake()
     {
         Instance = this;

@@ -1,32 +1,38 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Equipment : MonoBehaviour
 {
+    [SerializeField] Button close;
+    [SerializeField] GameObject equipmentItem;
 
-    // Use this for initialization
-    void Start()
+    private void OnEnable()
     {
-
+        close.onClick.AddListener(OnCloseClick);
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnCloseClick()
     {
-
+        GetComponent<ShowUIAnim>().OnUIClose();
     }
 
-    public void SetId(int id)
+    public bool SetId(int id)
     {
         ObjectInfo objectInfo = ParseObjectInfo.Instance.GetObjectInfo(id);
-        EquipmentItem[] equipmentItems = GetComponentsInChildren<EquipmentItem>();
-        for (int i = 0; i < equipmentItems.Length; i++)
+        EquipmentItemGrid[] equipmentItemGrids = GetComponentsInChildren<EquipmentItemGrid>();
+        for (int i = 0; i < equipmentItemGrids.Length; i++)
         {
-            if (objectInfo.dressType == equipmentItems[i].dressType)
+            if (objectInfo.applicationType == PlayerStatus.Instance.applicationType || objectInfo.applicationType == ApplicationType.Common)
             {
-                equipmentItems[i].SetInfo(objectInfo);
+                if (objectInfo.dressType == equipmentItemGrids[i].dressType)
+                {
+                    return equipmentItemGrids[i].SetInfo(objectInfo, equipmentItem);
+                }
             }
         }
+        return false;
     }
 }

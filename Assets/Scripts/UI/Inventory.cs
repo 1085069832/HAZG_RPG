@@ -1,7 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 /// <summary>
 /// 背包
@@ -11,6 +11,7 @@ public class Inventory : MonoBehaviour
     public static Inventory Instance;
     [SerializeField] List<InventoryItemGrid> items = new List<InventoryItemGrid>();//物品
     [SerializeField] Text coin;//金币
+    [SerializeField] Button close;
     ShowUIAnim showUIAnim;
     public GameObject inventoryItem;
     [SerializeField] GameObject inventoryItemCopy;//显示拖拽的物品
@@ -25,6 +26,9 @@ public class Inventory : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        showUIAnim = GetComponent<ShowUIAnim>();
+        labelUI = GetComponent<LabelUI>();
+        playerStatus = PlayerStatus.Instance;
 
         InventoryItem.BeginDrag += OnItemBeginDrag;
         InventoryItem.Draging += OnItemDraging;
@@ -33,12 +37,14 @@ public class Inventory : MonoBehaviour
         InventoryItem.PointerExit += OnItemPointerExit;
     }
 
-    // Use this for initialization
-    void Start()
+    private void OnEnable()
     {
-        showUIAnim = GetComponent<ShowUIAnim>();
-        labelUI = GetComponent<LabelUI>();
-        playerStatus = PlayerStatus.Instance;
+        close.onClick.AddListener(OnCloseClick);
+    }
+
+    void OnCloseClick()
+    {
+        showUIAnim.OnUIClose();
     }
 
     void OnItemBeginDrag(Transform inventoryItem)
@@ -52,7 +58,7 @@ public class Inventory : MonoBehaviour
         inventoryItemCopy.transform.position = Input.mousePosition;
     }
 
-    void OnItemEndDrag(Transform inventoryItem, PointerEventData eventData)
+    void OnItemEndDrag(Transform inventoryItem, UnityEngine.EventSystems.PointerEventData eventData)
     {
         //结束拖拽
         //判断拖拽到哪个物体上
@@ -148,21 +154,34 @@ public class Inventory : MonoBehaviour
 
         if (Input.GetMouseButtonDown(2))
         {
-            GetId(Random.Range(2001, 2022));
+            GetId(UnityEngine.Random.Range(2001, 2022));
         }
 
+        //装备物品
         if (Input.GetMouseButtonDown(1))
         {
-            if (isPointEnter)
+            AddEquipment();
+        }
+    }
+
+    /// <summary>
+    /// 添加到装备
+    /// </summary>
+    void AddEquipment()
+    {
+        if (isPointEnter)
+        {
+            if (inventoryItemGrid.num > 0)
             {
-                if (inventoryItemGrid.num > 0)
+                bool isAddEquip = equipment.SetId(id);
+                if (isAddEquip)
                 {
-                    equipment.SetId(id);
                     inventoryItemGrid.AddNum(-1);
                     if (inventoryItemGrid.num == 0)
                     {
                         Destroy(inventoryItemGo);
                         inventoryItemGrid.ClearInfo();
+                        labelUI.HideLabel();
                     }
                 }
             }
