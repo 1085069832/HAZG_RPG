@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 /// <summary>
 /// 摄像机跟随
 /// </summary>
@@ -53,7 +54,7 @@ public class FollowPlayer : MonoBehaviour
             isRotating = false;
         }
 
-        if (isRotating && playerMove.state == PlayerMove.PlayerState.Idle)
+        if (isRotating && playerMove.state == PlayerMove.PlayerState.Idle && !EventSystem.current.IsPointerOverGameObject())
         {
             float mouseX = Input.GetAxis(MyConstants.MOUSEX);//鼠标滑动值
             float mouseY = Input.GetAxis(MyConstants.MOUSEY);

@@ -182,6 +182,7 @@ public class Inventory : MonoBehaviour
                         Destroy(inventoryItemGo);
                         inventoryItemGrid.ClearInfo();
                         labelUI.HideLabel();
+                        isPointEnter = false;
                     }
                 }
             }
