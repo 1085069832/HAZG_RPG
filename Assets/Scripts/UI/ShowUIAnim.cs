@@ -14,7 +14,7 @@ public class ShowUIAnim : MonoBehaviour
     [HideInInspector]
     public bool isClose = true;//是否关闭
 
-    private void Start()
+    void Start()
     {
         startIndex = GameObject.Find(MyConstants.STARTINDEX).transform;
         endIndex = GameObject.Find(MyConstants.ENDINDEX).transform;

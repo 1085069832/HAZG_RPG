@@ -23,7 +23,7 @@ public class Inventory : MonoBehaviour
     InventoryItemGrid inventoryItemGrid;
     GameObject inventoryItemGo;
 
-    private void Awake()
+    void Awake()
     {
         Instance = this;
         showUIAnim = GetComponent<ShowUIAnim>();
@@ -37,7 +37,7 @@ public class Inventory : MonoBehaviour
         InventoryItem.PointerExit += OnItemPointerExit;
     }
 
-    private void OnEnable()
+    void OnEnable()
     {
         close.onClick.AddListener(OnCloseClick);
     }

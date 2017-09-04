@@ -9,7 +9,7 @@ public class Equipment : MonoBehaviour
     [SerializeField] Button close;
     [SerializeField] GameObject equipmentItem;
 
-    private void OnEnable()
+    void OnEnable()
     {
         close.onClick.AddListener(OnCloseClick);
     }
