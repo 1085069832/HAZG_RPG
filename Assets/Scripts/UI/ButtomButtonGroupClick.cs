@@ -43,11 +43,17 @@ public class ButtomButtonGroupClick : MonoBehaviour
 
     public void OnSkillClick()
     {
-
+        if (skillShowUIAnim.isClose)
+            skillShowUIAnim.OnUIOpen();
+        else
+            skillShowUIAnim.OnUIClose();
     }
 
     public void OnSettingClick()
     {
-
+        if (settingShowUIAnim.isClose)
+            settingShowUIAnim.OnUIOpen();
+        else
+            settingShowUIAnim.OnUIClose();
     }
 }
