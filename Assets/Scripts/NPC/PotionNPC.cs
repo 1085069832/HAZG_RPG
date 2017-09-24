@@ -6,7 +6,7 @@ public class PotionNPC : BaseNPC
 {
     [SerializeField] ShowUIAnim showUIAnim;
 
-    private void OnMouseDown()
+    protected override void OnMyMouseDown()
     {
         if (showUIAnim.isClose)
         {

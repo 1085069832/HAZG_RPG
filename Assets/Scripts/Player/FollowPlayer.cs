@@ -86,7 +86,7 @@ public class FollowPlayer : MonoBehaviour
     private void ScrollView()
     {
         float scrollValue = Input.GetAxis(MyConstants.MOUSESW);
-        if (scrollValue != 0)
+        if (scrollValue != 0 && !EventSystem.current.IsPointerOverGameObject())
         {
             DoScrollView(scrollValue);
         }

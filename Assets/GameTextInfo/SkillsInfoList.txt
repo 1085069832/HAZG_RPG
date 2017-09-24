@@ -8,5 +8,5 @@
 5002,治疗,skill-13,治愈30HP,Passive,HP,30,0,10,20,Magician,2,Self,0,Heal_Effect,Attack1,0.83
 5003,恢复魔法,skill-10,魔法恢复20,Passive,MP,20,0,0,30,Magician,5,Self,0,Effect_BlueHeal,Attack1,0.83
 5004,魔法爆炸,skill-05,攻击力为200%持续15秒,Buff,Attack,200,15,30,30,Magician,7,Self,0,RangeMagic_Effect,Skill-GroundImpact,1.1
-5005,加速魔法,skill-12,攻击力速度为200%持续30,Buff,AttackSpeed,200,30,30,30,Magician,8,Self,0,Efx_One-handQuicken,Skill-GroundImpact,1.1
+5005,加速魔法,skill-12,攻击力速度为200%持续30秒,Buff,AttackSpeed,200,30,30,30,Magician,8,Self,0,Efx_One-handQuicken,Skill-GroundImpact,1.1
 5006,究极风暴,skill-11,攻击力400% 所有敌人,MultiTarget,Attack,400,0,50,40,Magician,9,Position,10,MagicSphere_effect,AttackCritical,0.8

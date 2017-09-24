@@ -1,16 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class BaseNPC : MonoBehaviour
+public abstract class BaseNPC : MonoBehaviour
 {
-    private void OnMouseEnter()
+    void OnMouseEnter()
     {
         CursorManager.instance.SetCursorNpcTalk();
     }
 
-    private void OnMouseExit()
+    void OnMouseExit()
     {
         CursorManager.instance.SetCursorNormal();
     }
+
+    void OnMouseDown()
+    {
+        if (!EventSystem.current.IsPointerOverGameObject())
+        {
+            OnMyMouseDown();
+        }
+    }
+
+    protected abstract void OnMyMouseDown();
+
 }

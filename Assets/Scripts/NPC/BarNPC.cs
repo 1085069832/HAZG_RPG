@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class BarNPC : BaseNPC
@@ -21,7 +22,7 @@ public class BarNPC : BaseNPC
         showUIAnim = task.GetComponent<ShowUIAnim>();
     }
 
-    private void OnMouseDown()
+    protected override void OnMyMouseDown()
     {
         if (showUIAnim.isClose)
         {

@@ -11,10 +11,10 @@ public enum ApplicableRole
 //作用类型
 public enum ApplyType
 {
-    Passive,
-    Buff,
-    SingleTarget,
-    MultiTarget
+    Passive,//减益
+    Buff,//增益
+    SingleTarget,//单一
+    MultiTarget//群体
 }
 //作用属性
 public enum ApplyProperty
