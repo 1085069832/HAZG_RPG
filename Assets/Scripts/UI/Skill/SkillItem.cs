@@ -12,11 +12,15 @@ public class SkillItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     [SerializeField] Text _type;
     [SerializeField] Text _des;
     [SerializeField] Text _mp;
-    Skill skill;
+    public GameObject disenableImage;
+    public static Action<RawImage> BeginDrag;
+    public static Action Draging;
+    public static Action<PointerEventData, Texture> EndDrag;
+    public int level;
 
-    void Awake()
+    public void SetDisenableImage(bool enable)
     {
-        skill = GetComponentInParent<Skill>();
+        disenableImage.SetActive(enable);
     }
 
     /// <summary>
@@ -27,6 +31,7 @@ public class SkillItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     {
         icon.texture = LoadResource(skillInfo.icon_name);
         _name.text = skillInfo.name;
+        level = skillInfo.level;
         switch (skillInfo.applyType)
         {
             case ApplyType.Buff:
@@ -54,17 +59,19 @@ public class SkillItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
     void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
     {
-        skill.label.SetActive(true);
-        skill.label.GetComponent<RawImage>().texture = icon.texture;
+        if (BeginDrag != null && !disenableImage.activeSelf)
+            BeginDrag(icon);
     }
 
     void IDragHandler.OnDrag(PointerEventData eventData)
     {
-        skill.label.transform.position = Input.mousePosition;
+        if (Draging != null && !disenableImage.activeSelf)
+            Draging();
     }
 
     void IEndDragHandler.OnEndDrag(PointerEventData eventData)
     {
-        skill.label.SetActive(false);
+        if (EndDrag != null && !disenableImage.activeSelf)
+            EndDrag(eventData, icon.texture);
     }
 }

@@ -25,7 +25,7 @@ public class Equipment : MonoBehaviour
         EquipmentItemGrid[] equipmentItemGrids = GetComponentsInChildren<EquipmentItemGrid>();
         for (int i = 0; i < equipmentItemGrids.Length; i++)
         {
-            if (objectInfo.applicationType == PlayerStatus.Instance.applicationType || objectInfo.applicationType == ApplicationType.Common)
+            if (objectInfo.applicationType == PlayerStatus._instance.applicationType || objectInfo.applicationType == ApplicationType.Common)
             {
                 if (objectInfo.dressType == equipmentItemGrids[i].dressType)
                 {

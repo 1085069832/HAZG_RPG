@@ -24,7 +24,7 @@ public class DrugShop : MonoBehaviour
     void Start()
     {
         showUIAnim = GetComponent<ShowUIAnim>();
-        playerStatus = PlayerStatus.Instance;
+        playerStatus = PlayerStatus._instance;
     }
 
     private void OnEnable()

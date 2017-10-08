@@ -28,7 +28,7 @@ public class Inventory : MonoBehaviour
         Instance = this;
         showUIAnim = GetComponent<ShowUIAnim>();
         labelUI = GetComponent<LabelUI>();
-        playerStatus = PlayerStatus.Instance;
+        playerStatus = PlayerStatus._instance;
 
         InventoryItem.BeginDrag += OnItemBeginDrag;
         InventoryItem.Draging += OnItemDraging;

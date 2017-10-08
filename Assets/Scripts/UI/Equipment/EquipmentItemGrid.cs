@@ -46,7 +46,7 @@ public class EquipmentItemGrid : MonoBehaviour
     public void UpdatePlayerStatus(int id, bool isAdd)
     {
         ObjectInfo info = ParseObjectInfo.Instance.GetObjectInfo(id);
-        PlayerStatus status = PlayerStatus.Instance;
+        PlayerStatus status = PlayerStatus._instance;
         status.Attack = isAdd ? status.Attack += info.attack : status.Attack -= info.attack;
         status.Def = isAdd ? status.Def += info.def : status.Def -= info.def;
         status.Speed = isAdd ? status.Speed += info.speed : status.Speed -= info.speed;

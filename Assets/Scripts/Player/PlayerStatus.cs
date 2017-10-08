@@ -6,11 +6,15 @@ using UnityEngine;
 /// </summary>
 public class PlayerStatus : MonoBehaviour
 {
-    public static PlayerStatus Instance;
+    public static PlayerStatus _instance;
     private int grade = 1;
     private int hp = 100;
     private int mp = 100;
+    private int hp_remain = 100;
+    private int mp_remain = 100;
+
     [SerializeField] int coin = 1000;//金币
+    [SerializeField] int level = 1;
 
     private int attack = 20;
     private int attack_plus = 0;
@@ -25,7 +29,7 @@ public class PlayerStatus : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        _instance = this;
     }
 
     public int Coin
@@ -168,6 +172,45 @@ public class PlayerStatus : MonoBehaviour
         set
         {
             point_remain = value;
+        }
+    }
+
+    public int Level
+    {
+        get
+        {
+            return level;
+        }
+
+        set
+        {
+            level = value;
+        }
+    }
+
+    public int Hp_remain
+    {
+        get
+        {
+            return hp_remain;
+        }
+
+        set
+        {
+            hp_remain = value;
+        }
+    }
+
+    public int Mp_remain
+    {
+        get
+        {
+            return mp_remain;
+        }
+
+        set
+        {
+            mp_remain = value;
         }
     }
 }
